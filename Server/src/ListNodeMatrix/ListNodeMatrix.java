@@ -4,10 +4,10 @@ import java.util.NoSuchElementException;
 
 public class ListNodeMatrix {
 	
-	private ListNodeMatrix.ListNode lastNode;
-	private ListNodeMatrix.ListNode tLastNode;
+	private ListNode lastNode;
+	private ListNode tLastNode;
 	
-	private ListNodeMatrix.ListNode defualtCat; //I think there is a way not to have this but whatever not important
+	private ListNode defualtCat; //I think there is a way not to have this but whatever not important
 	
 	public ListNodeMatrix() {
 
@@ -16,16 +16,16 @@ public class ListNodeMatrix {
 
 	}
 	
-	public void addMain(ListNodeMatrix.ListNode o, String n) {
+	public void addMain(ListNode o, String n) {
 
 		if (lastNode == null) {
 
-			lastNode = new ListNodeMatrix.ListNode(o, n, lastNode);
+			lastNode = new ListNode(o, n, lastNode);
 			lastNode.setNext(lastNode);
 
 		} else {
 
-			lastNode.setNext(new ListNodeMatrix.ListNode(o, n, lastNode.getNext()));
+			lastNode.setNext(new ListNode(o, n, lastNode.getNext()));
 			lastNode = lastNode.getNext();
 
 		}
@@ -35,7 +35,7 @@ public class ListNodeMatrix {
 	public void addSub(Object o, String name, int pos) { //adds to the sub of the pos
 		
 		int curPos = 0;
-		ListNodeMatrix.ListNode cur = lastNode.getNext();
+		ListNode cur = lastNode.getNext();
 
 		while(curPos  < pos) {
 
@@ -50,17 +50,17 @@ public class ListNodeMatrix {
 
 		}
 		
-		tLastNode = (ListNodeMatrix.ListNode) cur.getValue();
+		tLastNode = (ListNode) cur.getValue();
 		
 		if(tLastNode == null) {
 			
-			tLastNode = new ListNodeMatrix.ListNode(o, name, tLastNode);
+			tLastNode = new ListNode(o, name, tLastNode);
 			tLastNode.setNext(tLastNode);
 			cur.setValue(tLastNode);
 
 		} else {
 
-			tLastNode.setNext(new ListNodeMatrix.ListNode(o, name, tLastNode.getNext()));
+			tLastNode.setNext(new ListNode(o, name, tLastNode.getNext()));
 			tLastNode = tLastNode.getNext();
 
 		}
@@ -69,7 +69,7 @@ public class ListNodeMatrix {
 	
 	public Object getMainAdress(int pos) {
 
-		ListNodeMatrix.ListNode cur = lastNode;
+		ListNode cur = lastNode;
 		for(int i = 0; i < pos ; i++) cur = cur.getNext();
 
 		return cur.getValue();
@@ -78,7 +78,7 @@ public class ListNodeMatrix {
 	
 	public Object getMainName(int pos) {
 
-		ListNodeMatrix.ListNode cur = lastNode;
+		ListNode cur = lastNode;
 		for(int i = 0; i < pos; i++) cur = cur.getNext();
 
 		return cur.getName();
@@ -103,20 +103,20 @@ public class ListNodeMatrix {
 	
 	public void printAll() {
 
-		ListNodeMatrix.ListNode cur = lastNode.getNext();
+		ListNode cur = lastNode.getNext();
 
 		while(cur != lastNode) {
 			
 			System.out.println("Cat:" + cur.getName());
 			System.out.println("");
-			tLastNode = (ListNodeMatrix.ListNode) cur.getValue();
+			tLastNode = (ListNode) cur.getValue();
 
 			if(cur.getValue() == null) System.out.println("Cat is empty");
 			else {
 				
 				if(tLastNode.getNext() == null) throw new NoSuchElementException("Inserted wrong");
 				
-				ListNodeMatrix.ListNode curt = tLastNode.getNext();
+				ListNode curt = tLastNode.getNext();
 
 				while(curt != tLastNode) {
 
@@ -135,14 +135,14 @@ public class ListNodeMatrix {
 		
 		System.out.println("Cat: " + lastNode.getName());
 		System.out.println("");
-		tLastNode = (ListNodeMatrix.ListNode) cur.getValue();
+		tLastNode = (ListNode) cur.getValue();
 
 		if(cur.getValue() == null) System.out.println("Cat is empty");
 		else {
 			
 			if(tLastNode.getNext() == null) throw new NoSuchElementException("Inserted wrong");
 			
-			ListNodeMatrix.ListNode curt = tLastNode.getNext();
+			ListNode curt = tLastNode.getNext();
 
 			while(curt != tLastNode) {
 

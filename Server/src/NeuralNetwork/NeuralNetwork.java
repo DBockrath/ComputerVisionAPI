@@ -4,15 +4,15 @@ import java.util.stream.IntStream;
 
 public class NeuralNetwork {
 
-    private NeuralNetwork.Matrix weightMatrix;
+    private Matrix weightMatrix;
 
     public NeuralNetwork(int size) {
 
-        weightMatrix = new NeuralNetwork.Matrix(size, size);
+        weightMatrix = new Matrix(size, size);
 
     }
 
-    public NeuralNetwork.Matrix getWeightMatrix() {
+    public Matrix getWeightMatrix() {
 
         return weightMatrix;
 
@@ -21,10 +21,10 @@ public class NeuralNetwork {
     public void train(double[] input) throws Exception {
 
         double[] bipolarInput = toBipolar(input);
-        NeuralNetwork.Matrix bipolarMatrix = NeuralNetwork.Matrix.toRowMatrix(bipolarInput);
-        NeuralNetwork.Matrix transposeBipolarMatrix = bipolarMatrix.transpose();
-        NeuralNetwork.Matrix multiplyMatrix = transposeBipolarMatrix.multiply(bipolarMatrix);
-        NeuralNetwork.Matrix subtractMatrix = multiplyMatrix.subtract(NeuralNetwork.Matrix.identity(weightMatrix.getData().length));
+        Matrix bipolarMatrix = Matrix.toRowMatrix(bipolarInput);
+        Matrix transposeBipolarMatrix = bipolarMatrix.transpose();
+        Matrix multiplyMatrix = transposeBipolarMatrix.multiply(bipolarMatrix);
+        Matrix subtractMatrix = multiplyMatrix.subtract(Matrix.identity(weightMatrix.getData().length));
         weightMatrix = weightMatrix.add(subtractMatrix);
 
     }
@@ -33,13 +33,13 @@ public class NeuralNetwork {
 
         double[] bipolarInput  = toBipolar(input);
         double[] output = new double[input.length];
-        NeuralNetwork.Matrix bipolarMatrix = NeuralNetwork.Matrix.toRowMatrix(bipolarInput);
+        Matrix bipolarMatrix = Matrix.toRowMatrix(bipolarInput);
 
         IntStream.range(0, input.length).forEach( column -> {
 
             try {
 
-                NeuralNetwork.Matrix columnMatrix = weightMatrix.getColumnMatrix(column);
+                Matrix columnMatrix = weightMatrix.getColumnMatrix(column);
                 double dotProductResult = bipolarMatrix.dotProduct(columnMatrix);
 
                 if (dotProductResult > 0) {
