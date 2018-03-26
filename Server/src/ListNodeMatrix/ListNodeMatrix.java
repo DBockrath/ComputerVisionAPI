@@ -84,6 +84,12 @@ public class ListNodeMatrix {
 		return cur.getName();
 
 	}
+
+	public Object getSubObject(int cat, int pos)
+	{
+		ListNode cur = lastNode;
+		return null;
+	}
 	
 	public void removeMain(int pos) { //removes a main node
 		
@@ -155,6 +161,16 @@ public class ListNodeMatrix {
 			
 		}
 		
+	}
+
+	public void save()
+	{
+
+	}
+
+	public void load()
+	{
+
 	}
 	
 	public int getPos(String in) {
