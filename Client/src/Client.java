@@ -22,6 +22,10 @@ public class Client {
             DataInputStream in = new DataInputStream(inFromServer);
 
             System.out.println("Server says " + in.readUTF());
+            //establish connection
+
+
+
             client.close();
 
         } catch (IOException e) {
