@@ -1,3 +1,5 @@
+import NeuralNetwork.NeuralNetwork;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -27,9 +29,35 @@ public class Server extends Thread {
                 Socket server = serverSocket.accept();
                 DataInputStream in = new DataInputStream(server.getInputStream());
 
-                System.out.println(in.readUTF());
+                try {
+
+                    Scanner scanner = new Scanner(in.readUTF());
+
+                    int neurons = Integer.parseInt(scanner.nextLine());
+                    String command = scanner.nextLine();
+                    double[] input = convertInput(scanner.nextLine());
+
+                    NeuralNetwork neuralNetwork = new NeuralNetwork(neurons);
+
+                    switch (command) {
+
+                        case "Train":
+                            neuralNetwork.train(input);
+
+                        case "Run":
+
+
+                    }
+
+                } catch (Exception err) {
+
+                    System.out.println("Error reading input");
+
+                }
+
                 DataOutputStream out = new DataOutputStream(server.getOutputStream());
                 out.writeUTF("Thank you for connecting " + "\nGoodbye!");
+
                 server.close();
 
             } catch (SocketTimeoutException s) {
@@ -42,6 +70,20 @@ public class Server extends Thread {
             }
 
         }
+
+    }
+
+    private double[] convertInput(String input) {
+
+        double[] returnData = new double[input.length()];
+
+        for (int i = 0; i < input.length(); i++) {
+
+            returnData[i] = Double.parseDouble(String.valueOf(input.charAt(i)));
+
+        }
+
+        return returnData;
 
     }
 
