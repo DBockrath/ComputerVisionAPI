@@ -41,7 +41,7 @@ public class ListNodeMatrix {
 
 			if(cur == lastNode) {
 
-				//throw new NoSuchElementException("Bad");
+				throw new NoSuchElementException("Bad");
 				
 			}
 
@@ -87,8 +87,39 @@ public class ListNodeMatrix {
 
 	public Object getSubObject(int cat, int pos)
 	{
-		ListNode cur = lastNode;
-		return null;
+		int curPos = 0;
+		ListNode cur = lastNode.getNext();
+
+		while(curPos < pos) {
+
+			if(cur == lastNode) {
+
+				throw new NoSuchElementException("Bad");
+
+			}
+
+			cur = cur.getNext();
+			curPos++;
+
+		}
+
+		tLastNode = (ListNode) cur.getValue();
+		cur = tLastNode.getNext();
+		curPos = 0;
+		while(curPos < pos)
+		{
+			if(cur == tLastNode)
+			{
+				throw new NoSuchElementException("Bad");
+			}
+
+			curPos++;
+			cur = cur.getNext();
+
+		}
+
+		return cur.getValue();
+
 	}
 	
 	public void removeMain(int pos) { //removes a main node
