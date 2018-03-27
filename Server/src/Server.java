@@ -33,6 +33,7 @@ public class Server extends Thread {
                 out.writeUTF("Thank you for connecting " + "\nGoodbye!");
 
                 in = new DataInputStream(server.getInputStream());
+                useNeuralNet(in.readUTF());
 
                 server.close();
 
