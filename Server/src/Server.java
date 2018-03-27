@@ -29,34 +29,10 @@ public class Server extends Thread {
                 Socket server = serverSocket.accept();
                 DataInputStream in = new DataInputStream(server.getInputStream());
 
-                try {
-
-                    Scanner scanner = new Scanner(in.readUTF());
-
-                    int neurons = Integer.parseInt(scanner.nextLine());
-                    String command = scanner.nextLine();
-                    double[] input = convertInput(scanner.nextLine());
-
-                    NeuralNetwork neuralNetwork = new NeuralNetwork(neurons);
-
-                    switch (command) {
-
-                        case "Train":
-                            neuralNetwork.train(input);
-
-                        case "Run":
-
-
-                    }
-
-                } catch (Exception err) {
-
-                    System.out.println("Error reading input");
-
-                }
-
                 DataOutputStream out = new DataOutputStream(server.getOutputStream());
                 out.writeUTF("Thank you for connecting " + "\nGoodbye!");
+
+                in = new DataInputStream(server.getInputStream());
 
                 server.close();
 
@@ -87,14 +63,50 @@ public class Server extends Thread {
 
     }
 
+    private void useNeuralNet(String in) {
+
+        String[] data = in.split(",");
+
+        int neurons = Integer.parseInt(data[0]);
+        String command = data[1];
+        double[] input = convertInput(data[2]);
+
+        NeuralNetwork neuralNetwork = new NeuralNetwork(neurons);
+
+        try {
+
+            switch (command) {
+
+                case "Train":
+                    neuralNetwork.train(input);
+                    break;
+
+                case "Run":
+                    neuralNetwork.run(input);
+                    break;
+
+                case "Clear":
+                    neuralNetwork.getWeightMatrix().clear();
+                    break;
+
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+    }
+
     public static void main(String[] args) {
 
         try {
 
-            Scanner scanner = new Scanner(new File("C:\\Users\\diboc\\Documents\\IntelliJ Workspace\\ComputerVisionAPI\\Server\\ClientData"));
-//            Scanner scanner = new Scanner(new File(""));
+            Scanner scanner = new Scanner(new File("C:\\Users\\Public\\Documents\\ServerData.txt"));
 
-
+            String rName = scanner.nextLine();
+            String dName = scanner.nextLine();
             int port = Integer.parseInt(scanner.nextLine());
 
             try {

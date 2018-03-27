@@ -12,9 +12,7 @@ public class Client {
 
         try {
 
-            Scanner scanner = new Scanner(new File("C:\\Users\\diboc\\Documents\\IntelliJ Workspace\\ComputerVisionAPI\\Client\\ServerData"));
-//            Scanner scanner = new Scanner(new File(""));
-
+            Scanner scanner = new Scanner(new File("C:\\Users\\Public\\Documents\\ServerData.txt"));
 
             rName = scanner.nextLine();
             dName = scanner.nextLine();
