@@ -1,9 +1,11 @@
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.Scanner;
 
 public class Server extends Thread {
 
@@ -51,16 +53,28 @@ public class Server extends Thread {
 
     public static void main(String[] args) {
 
-        int port = 25565;
-
         try {
 
-            Thread t = new Server(port);
-            t.start();
+            Scanner scanner = new Scanner(new File("C:\\Users\\diboc\\Documents\\IntelliJ Workspace\\ComputerVisionAPI\\Server\\ClientData"));
+//            Scanner scanner = new Scanner(new File(""));
 
-        } catch (IOException e) {
 
-            e.printStackTrace();
+            int port = Integer.parseInt(scanner.nextLine());
+
+            try {
+
+                Thread t = new Server(port);
+                t.start();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
+            }
+
+        } catch (IOException er) {
+
+            System.out.println("Error reading from file");
 
         }
 
