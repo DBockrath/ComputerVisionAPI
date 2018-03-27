@@ -24,21 +24,15 @@ public class Server extends Thread {
 
             try {
 
-                System.out.println("Waiting for Client on port " + serverSocket.getLocalPort() + "...");
                 Socket server = serverSocket.accept();
-
-                System.out.println("Just connected to " + server.getRemoteSocketAddress());
                 DataInputStream in = new DataInputStream(server.getInputStream());
 
                 System.out.println(in.readUTF());
                 DataOutputStream out = new DataOutputStream(server.getOutputStream());
-                out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress() + "\nGoodbye!");
+                out.writeUTF("Thank you for connecting " + "\nGoodbye!");
                 server.close();
 
             } catch (SocketTimeoutException s) {
-
-                System.out.println("Socket timed out!");
-                break;
 
             } catch (IOException e) {
 
