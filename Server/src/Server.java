@@ -1,3 +1,4 @@
+import ListNodeMatrix.ListNodeMatrix;
 import NeuralNetwork.NeuralNetwork;
 
 import java.io.DataInputStream;
@@ -111,11 +112,27 @@ public class Server extends Thread {
 
     }
 
+
+
     public static void main(String[] args) {
 
-        boolean testing = false;
-        if (testing) throw new NoSuchElementException("Testing finished, stopping code");
+        ListNodeMatrix LNM = new ListNodeMatrix();
+        boolean testing = true;
 
+        if (testing) {
+            LNM.addMain(null, "dan");
+            LNM.addMain(null, "Ronnie");
+            LNM.addSub("Hello dan", "Hello Dan", 0);
+            LNM.addSub("Hello dan 2", "Hello Dan 2", 0);
+            LNM.addSub("Hello dan 3", "Hello dan 3", 0);
+            LNM.addSub("Hello rannie", "Hello Rannie", 1);
+            LNM.addSub("Hello ronnie 2", "Hello Ronnie 2", 1);
+            LNM.addSub("Hello ronnie 3", "Hello Ronnie 3", 1);
+
+            System.out.println(LNM.getSubObject(0, 0));
+
+            throw new NoSuchElementException("Testing finished, stopping code");
+        }
         try {
 
             Scanner scanner = new Scanner(new File("C:\\Users\\Public\\Documents\\ServerData.txt"));
