@@ -11,6 +11,8 @@ import java.util.Scanner;
 
 public class Server extends Thread {
 
+    int neurons = 0;
+
     private ServerSocket serverSocket;
 
     public Server(int port) throws IOException {
@@ -27,15 +29,15 @@ public class Server extends Thread {
             try {
 
                 Socket server = serverSocket.accept();
+
+                System.out.println("Connected to Client");
+                System.out.println("");
+
                 DataInputStream in = new DataInputStream(server.getInputStream());
+                useNeuralNet(in.readUTF());
 
                 DataOutputStream out = new DataOutputStream(server.getOutputStream());
                 out.writeUTF("Thank you for connecting");
-
-                in.close();
-
-                in = new DataInputStream(server.getInputStream());
-                useNeuralNet(in.readUTF());
 
                 server.close();
 
@@ -55,6 +57,7 @@ public class Server extends Thread {
     private double[] convertInput(String input) {
 
         double[] returnData = new double[input.length()];
+        System.out.println("Input: " + input);
 
         for (int i = 0; i < input.length(); i++) {
 
@@ -70,8 +73,13 @@ public class Server extends Thread {
 
         String[] data = in.split(",");
 
-        int neurons = Integer.parseInt(data[0]);
+        if (neurons == 0) neurons = Integer.parseInt(data[0]);
+
         String command = data[1];
+
+        System.out.println("Neurons: " + neurons);
+        System.out.println("Command: " + command);
+
         double[] input = convertInput(data[2]);
 
         NeuralNetwork neuralNetwork = new NeuralNetwork(neurons);
@@ -85,11 +93,7 @@ public class Server extends Thread {
                     break;
 
                 case "Run":
-                    neuralNetwork.run(input);
-                    break;
-
-                case "Clear":
-                    neuralNetwork.getWeightMatrix().clear();
+                    System.out.println(neuralNetwork.run(input));
                     break;
 
             }
