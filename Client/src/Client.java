@@ -1,10 +1,23 @@
 import java.io.*;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Client {
 
     public static void main(String[] args) {
+
+
+        boolean testing = false;
+        //Testing Stuff Place (needed a driver to test with
+        if(testing)
+
+
+
+
+
+        throw new NoSuchElementException("shhhhhh");
+        //end testing spot
 
         String rName = null;
         String dName = null;
@@ -21,6 +34,7 @@ public class Client {
 
         } catch (IOException e) {
 
+            //you really should use throws instead of printing, letting the code keep running if something goes wrong can cause problems
             System.out.println("Error reading from file");
 
         }
