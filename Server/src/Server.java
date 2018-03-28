@@ -113,20 +113,8 @@ public class Server extends Thread {
 
     public static void main(String[] args) {
 
-
         boolean testing = false;
-        //Testing Stuff Place (needed a driver to test with
-        if(testing)
-
-
-
-
-
-            throw new NoSuchElementException("Testing finished stopping code");
-        //end testing spot
-
-
-
+        if (testing) throw new NoSuchElementException("Testing finished, stopping code");
 
         try {
 
