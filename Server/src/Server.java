@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Server extends Thread {
@@ -111,6 +112,9 @@ public class Server extends Thread {
     }
 
     public static void main(String[] args) {
+
+        boolean testing = false;
+        if (testing) throw new NoSuchElementException("Testing finished, stopping code");
 
         try {
 
