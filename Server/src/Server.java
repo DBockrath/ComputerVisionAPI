@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class Server extends Thread {
 
-    int neurons = 0;
+    private int neurons = 0;
 
     private ServerSocket serverSocket;
 
@@ -43,6 +43,10 @@ public class Server extends Thread {
                 server.close();
 
             } catch (SocketTimeoutException s) {
+
+                System.out.println("Socket timed out");
+                System.out.println("Re-opening socket...");
+                System.out.println("");
 
             } catch (IOException e) {
 
@@ -94,7 +98,7 @@ public class Server extends Thread {
                     break;
 
                 case "Run":
-                    System.out.println(neuralNetwork.run(input));
+                    neuralNetwork.run(input);
                     break;
 
             }
