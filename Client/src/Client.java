@@ -27,38 +27,38 @@ public class Client {
 
         try {
 
-            String serverName = rName;
-
-            Socket client = new Socket(serverName, port);
+            Socket client = new Socket(rName, port);
 
             System.out.println("Connected to Server 1");
+
             OutputStream outToServer = client.getOutputStream();
             DataOutputStream out = new DataOutputStream(outToServer);
+            out.writeUTF("Hello from Client");
 
-            out.writeUTF("Hello from Server 1");
             InputStream inFromServer = client.getInputStream();
             DataInputStream in = new DataInputStream(inFromServer);
-
             System.out.println("Server 1 says " + in.readUTF());
+
+            out.writeUTF("9,Train,110100101");
+
             client.close();
 
         } catch (IOException e) {
 
             try {
 
-                String serverName = dName;
-
-                Socket client = new Socket(serverName, port);
+                Socket client = new Socket(dName, port);
 
                 System.out.println("Connected to Server 2");
+
                 OutputStream outToServer = client.getOutputStream();
                 DataOutputStream out = new DataOutputStream(outToServer);
+                out.writeUTF("9,Run,110100001");
 
-                out.writeUTF("Hello from Server 2");
                 InputStream inFromServer = client.getInputStream();
                 DataInputStream in = new DataInputStream(inFromServer);
+                System.out.println("Server 2 says: " + in.readUTF());
 
-                System.out.println("Server 2 says " + in.readUTF());
                 client.close();
 
             } catch (IOException er) {
