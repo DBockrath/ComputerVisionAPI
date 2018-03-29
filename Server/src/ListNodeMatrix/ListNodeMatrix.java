@@ -209,5 +209,10 @@ public class ListNodeMatrix {
 		}
 
 	}
+
+	public void printCat(int pos)
+	{
+
+	}
 	
 }
