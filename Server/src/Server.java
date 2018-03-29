@@ -120,16 +120,8 @@ public class Server extends Thread {
         boolean testing = true;
 
         if (testing) {
-            LNM.addMain(null, "dan");
-            LNM.addMain(null, "Ronnie");
-            LNM.addSub("Hello dan", "Hello Dan", 0);
-            LNM.addSub("Hello dan 2", "Hello Dan 2", 0);
-            LNM.addSub("Hello dan 3", "Hello dan 3", 0);
-            LNM.addSub("Hello rannie", "Hello Rannie", 1);
-            LNM.addSub("Hello ronnie 2", "Hello Ronnie 2", 1);
-            LNM.addSub("Hello ronnie 3", "Hello Ronnie 3", 1);
 
-            System.out.println(LNM.getSubObject(1, 2));
+
             throw new NoSuchElementException("Testing finished, stopping code!!");
         }
         try {

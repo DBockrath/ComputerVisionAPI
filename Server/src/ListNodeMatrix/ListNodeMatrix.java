@@ -16,16 +16,16 @@ public class ListNodeMatrix {
 
 	}
 	
-	public void addMain(ListNode o, String n) {
+	public void addMain(ListNode Node, String n) {
 
 		if (lastNode == null) {
 
-			lastNode = new ListNode(o, n, lastNode);
+			lastNode = new ListNode(Node, n, lastNode);
 			lastNode.setNext(lastNode);
 
 		} else {
 
-			lastNode.setNext(new ListNode(o, n, lastNode.getNext()));
+			lastNode.setNext(new ListNode(Node, n, lastNode.getNext()));
 			lastNode = lastNode.getNext();
 
 		}
@@ -149,7 +149,7 @@ public class ListNodeMatrix {
 
 				while(curt != tLastNode) {
 
-					System.out.println(curt.getName());
+					System.out.println(curt.getName() + " contains object type:" + curt.getValue().getClass() + " :" + curt.getValue() );
 					curt = curt.getNext();
 
 				}
@@ -175,7 +175,7 @@ public class ListNodeMatrix {
 
 			while(curt != tLastNode) {
 
-				System.out.println(curt.getName());
+				System.out.println(curt.getName() + " contains object type:" + curt.getValue().getClass() + " :" + curt.getValue() );
 				curt = curt.getNext();
 
 			}
@@ -187,12 +187,12 @@ public class ListNodeMatrix {
 	}
 
 	public void save()
-	{
+	{ //writes nodes to a file
 
 	}
 
 	public void load()
-	{
+	{ //reads in nodes from a files
 
 	}
 	
