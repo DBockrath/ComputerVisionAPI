@@ -186,6 +186,10 @@ public class ListNodeMatrix {
 		
 	}
 
+	/*
+	Each cat is broken into a string with each
+	 */
+
 	public void save()
 	{ //writes nodes to a file
 
