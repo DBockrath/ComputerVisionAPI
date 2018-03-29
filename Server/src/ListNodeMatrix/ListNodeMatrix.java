@@ -86,7 +86,7 @@ public class ListNodeMatrix {
 	}
 
 	public Object getSubObject(int cat, int pos)
-	{
+	{//Does not stop if a pos is larger than the number of nodes! it will circle around at the moment
 		int curPos = 0;
 		ListNode cur = lastNode.getNext();
 
