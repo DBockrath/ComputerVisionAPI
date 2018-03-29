@@ -129,8 +129,7 @@ public class Server extends Thread {
             LNM.addSub("Hello ronnie 2", "Hello Ronnie 2", 1);
             LNM.addSub("Hello ronnie 3", "Hello Ronnie 3", 1);
 
-            System.out.println(LNM.getSubObject(0, 0));
-
+            System.out.println(LNM.getSubObject(1, 3));
             throw new NoSuchElementException("Testing finished, stopping code");
         }
         try {

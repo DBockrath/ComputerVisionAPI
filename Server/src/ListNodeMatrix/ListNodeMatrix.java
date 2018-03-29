@@ -90,13 +90,9 @@ public class ListNodeMatrix {
 		int curPos = 0;
 		ListNode cur = lastNode.getNext();
 
-		while(curPos < pos) {
+		while(curPos < cat) {
 
-			if(cur == lastNode) {
 
-				throw new NoSuchElementException("Bad");
-
-			}
 
 			cur = cur.getNext();
 			curPos++;
@@ -108,10 +104,6 @@ public class ListNodeMatrix {
 		curPos = 0;
 		while(curPos < pos)
 		{
-			if(cur == tLastNode)
-			{
-				throw new NoSuchElementException("Bad");
-			}
 
 			curPos++;
 			cur = cur.getNext();
