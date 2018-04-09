@@ -195,8 +195,13 @@ public class ListNodeMatrix {
 
 	}
 
-	public void load()
-	{ //reads in nodes from a files
+	public void loadCats()
+	{ //loads in all the cats
+
+	}
+
+	public void load(String cat)
+	{//loads in the specified cat needed
 
 	}
 	
