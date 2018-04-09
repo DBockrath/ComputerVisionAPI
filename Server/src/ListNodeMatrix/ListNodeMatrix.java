@@ -1,5 +1,6 @@
 package ListNodeMatrix;
 
+import java.io.PrintWriter;
 import java.util.NoSuchElementException;
 
 public class ListNodeMatrix {
@@ -190,6 +191,18 @@ public class ListNodeMatrix {
 	Each cat is broken into a string with each
 	 */
 
+	public boolean saveData()
+	{
+		try {
+			PrintWriter writer = new PrintWriter("cat1.txt", "cat1");
+			writer.println("Hi Dan");
+
+		}catch(Exception e)
+		{
+			return false;
+		}
+		return false;
+	}
 
 	
 	public int getPos(String in) {
