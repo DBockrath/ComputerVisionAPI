@@ -64,7 +64,7 @@ public class NeuralNetwork {
 
     }
 
-    static double[] toBipolar(double[] pattern) {
+    private static double[] toBipolar(double[] pattern) {
 
         double[] bipolarPattern = new double[pattern.length];
 
@@ -78,18 +78,14 @@ public class NeuralNetwork {
 
     }
 
-//    static double[] fromBipolar(double[] bipolarPattern) {
-//
-//        double[] pattern = new double[bipolarPattern.length];
-//
-//        IntStream.range(0, bipolarPattern.length).forEach( row -> {
-//
-//            pattern[row] = (bipolarPattern[row] + 1) / 2;
-//
-//        });
-//
-//        return pattern;
-//
-//    }
+    static double[] fromBipolar(double[] bipolarPattern) {
+
+        double[] pattern = new double[bipolarPattern.length];
+
+        IntStream.range(0, bipolarPattern.length).forEach( row -> pattern[row] = (bipolarPattern[row] + 1) / 2);
+
+        return pattern;
+
+    }
 
 }
