@@ -121,6 +121,7 @@ public class Server extends Thread {
 
         if (testing) {
 
+            System.out.println("" + LNM.saveData());
 
             throw new NoSuchElementException("Testing finished, stopping code!!");
         }

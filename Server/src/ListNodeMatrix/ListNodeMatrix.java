@@ -194,11 +194,13 @@ public class ListNodeMatrix {
 	public boolean saveData()
 	{
 		try {
-			PrintWriter writer = new PrintWriter("cat1.txt", "cat1");
+			PrintWriter writer = new PrintWriter("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\ListNodeMatrix\\cat1.txt", "UTF-8");
 			writer.println("Hi Dan");
+			writer.close();
 
 		}catch(Exception e)
 		{
+			System.out.println(e);
 			return false;
 		}
 		return false;
