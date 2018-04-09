@@ -190,20 +190,7 @@ public class ListNodeMatrix {
 	Each cat is broken into a string with each
 	 */
 
-	public void save()
-	{ //writes nodes to a file
 
-	}
-
-	public void loadCats()
-	{ //loads in all the cats
-
-	}
-
-	public void load(String cat)
-	{//loads in the specified cat needed
-
-	}
 	
 	public int getPos(String in) {
 		//replace this
