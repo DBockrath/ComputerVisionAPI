@@ -194,16 +194,81 @@ public class ListNodeMatrix {
 	public boolean saveData()
 	{
 		try {
-			PrintWriter writer = new PrintWriter("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\ListNodeMatrix\\cat1.txt", "UTF-8");
-			writer.println("Hi Dan");
+			PrintWriter writer = null;
+			//writer.println("Hi Dan");
+			//writer.close();
+
+			ListNode cur = lastNode.getNext();
+
+			while(cur != lastNode) {
+
+//				System.out.println("Cat:" + cur.getName());
+//				System.out.println("");
+				tLastNode = (ListNode) cur.getValue();
+
+				writer = new PrintWriter("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\ListNodeMatrix\\Storage\\" + cur.getName() + ".txt", "UTF-8");
+
+				if(cur.getValue() == null)
+				{
+					//System.out.println("Cat is empty");
+				}
+				else {
+
+					if(tLastNode.getNext() == null) throw new NoSuchElementException("Inserted wrong");
+
+					ListNode curt = tLastNode.getNext();
+
+					while(curt != tLastNode) {
+
+						//System.out.println(curt.getName() + " contains object type:" + curt.getValue().getClass() + " :" + curt.getValue() );
+						writer.print(curt.getName() + "," + curt.getValue() + ",");
+						curt = curt.getNext();
+
+					}
+
+					//System.out.println(tLastNode.getName());
+					writer.print(tLastNode.getName() + "," + tLastNode.getValue() + ",");
+
+				}
+				writer.close();
+				cur = cur.getNext();
+
+			}
+
+//			System.out.println("Cat: " + lastNode.getName());
+//			System.out.println("");
+			tLastNode = (ListNode) cur.getValue();
+
+			writer = new PrintWriter("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\ListNodeMatrix\\Storage\\" + lastNode.getName() + ".txt", "UTF-8");
+
+			if(cur.getValue() == null) System.out.println("Cat is empty");
+			else {
+
+				if(tLastNode.getNext() == null) throw new NoSuchElementException("Inserted wrong");
+
+				ListNode curt = tLastNode.getNext();
+
+				while(curt != tLastNode) {
+
+					//System.out.println(curt.getName() + " contains object type:" + curt.getValue().getClass() + " :" + curt.getValue() );
+					writer.print(curt.getName() + "," + curt.getValue() + ",");
+					curt = curt.getNext();
+
+				}
+
+				writer.print(tLastNode.getName() + "," + tLastNode.getValue() + ",");
+				//System.out.println(tLastNode.getName());
+
+			}
 			writer.close();
 
+			return true;
 		}catch(Exception e)
 		{
 			System.out.println(e);
 			return false;
 		}
-		return false;
+		//return false;
 	}
 
 	
