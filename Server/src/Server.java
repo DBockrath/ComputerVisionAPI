@@ -121,16 +121,14 @@ public class Server extends Thread {
 
         if (testing) {
 
-            LNM.addMain(null, "Dan");
-            LNM.addMain(null, "Ronnie");
-            LNM.addSub(1, "one", 0);
-            LNM.addSub(2, "two", 0);
-            LNM.addSub(3, "three", 0);
-            LNM.addSub(4, "four", 0);
-            LNM.addSub(1, "one", 1);
-            LNM.addSub(2, "two", 1);
-            LNM.addSub(3, "three", 1);
-            LNM.addSub(4, "four", 1);
+            for(int i = 0; i < 15; i++)
+            {
+                LNM.addMain(null, ""+ i);
+                for(int k = 0; k < 50; k++)
+                {
+
+                }
+            }
 
 
             System.out.println("" + LNM.saveData());
