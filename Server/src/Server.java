@@ -126,7 +126,7 @@ public class Server extends Thread {
                 LNM.addMain(null, ""+ i);
                 for(int k = 0; k < 50; k++)
                 {
-
+                    LNM.addSub(k, ""+ k + (int)System.currentTimeMillis(), i);
                 }
             }
 
