@@ -124,13 +124,13 @@ public class Server extends Thread {
             for(int i = 0; i < 15; i++)
             {
                 LNM.addMain(null, ""+ i);
-                for(int k = 0; k < 50; k++)
+                for(int k = 0; k < 20; k++)
                 {
                     LNM.addSub(k, ""+ k + (int)System.currentTimeMillis(), i);
                 }
             }
 
-
+            LNM.printAll();
             System.out.println("" + LNM.saveData());
 
             throw new NoSuchElementException("Testing finished, stopping code!!");
