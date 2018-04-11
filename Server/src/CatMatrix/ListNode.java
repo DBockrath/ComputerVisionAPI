@@ -1,4 +1,4 @@
-package ListNodeMatrix;
+package CatMatrix;
 
 public class ListNode {
 

@@ -1,4 +1,4 @@
-package ListNodeMatrix;
+package CatMatrix;
 
 import java.io.PrintWriter;
 import java.util.NoSuchElementException;
@@ -206,7 +206,7 @@ public class ListNodeMatrix {
 //				System.out.println("");
 				tLastNode = (ListNode) cur.getValue();
 
-				writer = new PrintWriter("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\ListNodeMatrix\\Storage\\" + cur.getName() + ".txt", "UTF-8");
+				writer = new PrintWriter("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\CatMatrix\\Storage\\" + cur.getName() + ".txt", "UTF-8");
 
 				if(cur.getValue() == null)
 				{
@@ -239,7 +239,7 @@ public class ListNodeMatrix {
 //			System.out.println("");
 			tLastNode = (ListNode) cur.getValue();
 
-			writer = new PrintWriter("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\ListNodeMatrix\\Storage\\" + lastNode.getName() + ".txt", "UTF-8");
+			writer = new PrintWriter("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\CatMatrix\\Storage\\" + lastNode.getName() + ".txt", "UTF-8");
 
 			if(cur.getValue() == null) System.out.println("Cat is empty");
 			else {

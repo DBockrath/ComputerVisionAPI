@@ -1,4 +1,4 @@
-import ListNodeMatrix.ListNodeMatrix;
+import CatMatrix.ListNodeMatrix;
 import NeuralNetwork.NeuralNetwork;
 
 import java.io.DataInputStream;
@@ -117,7 +117,7 @@ public class Server extends Thread {
     public static void main(String[] args) {
 
         ListNodeMatrix LNM = new ListNodeMatrix();
-        boolean testing = true;
+        boolean testing = false;
 
         if (testing) {
 

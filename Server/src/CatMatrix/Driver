@@ -1,10 +1,10 @@
-package ListNodeMatrix;
+package CatMatrix;
 
 public class Driver {
 
     public static void main(String[] args) {
 
-        ListNodeMatrix LNM = new ListNodeMatrix();
+        CatMatrix LNM = new CatMatrix();
 
         LNM.addMain(null, "Jena");
         LNM.addMain(null, "Dan");
