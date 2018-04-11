@@ -32,6 +32,18 @@ public class ListNodeMatrix {
 		}
 
 	}
+//@param Adds an empty cat to the matrix
+	public void addMain(String name)
+	{
+		if(lastNode == null){
+			lastNode = new ListNode(null, name, lastNode);
+			lastNode.setNext(lastNode);
+		}else
+		{
+			lastNode.setNext((new ListNode(null, name, lastNode.getNext())));
+			lastNode = lastNode.getNext();
+		}
+	}
 	
 	public void addSub(Object o, String name, int pos) { //adds to the sub of the pos
 		
@@ -66,6 +78,32 @@ public class ListNodeMatrix {
 
 		}
 		
+	}
+
+	public void addSub(Object object, String name, String cat)
+	{
+		ListNode cur = lastNode.getNext();
+		while(cur.getName() != cat) {
+			if(cur == lastNode) {
+				throw new NoSuchElementException("Bad");
+			}
+			cur = cur.getNext();
+		}
+
+		tLastNode = (ListNode) cur.getValue();
+
+		if(tLastNode == null) {
+
+			tLastNode = new ListNode(object, name, tLastNode);
+			tLastNode.setNext(tLastNode);
+			cur.setValue(tLastNode);
+
+		} else {
+
+			tLastNode.setNext(new ListNode(object, name, tLastNode.getNext()));
+			tLastNode = tLastNode.getNext();
+
+		}
 	}
 	
 	public Object getMainAdress(int pos) {
