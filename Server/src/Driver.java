@@ -7,25 +7,28 @@ public class Driver {
 
     public static void main(String[] args) {
 
-     /*   ArrayList<ListNode> list = new ArrayList<>();
+   /*    ArrayList<ListNode> list = new ArrayList<>();
         for(int k = 0; k < 7500000; k++)
         {
             list.add(new ListNode(k, "" + k,null));
-        } */
+        }
+*/
 
-
-        ListNodeMatrix LNM = new ListNodeMatrix();
-        for(int i = 0; i < 1; i++)
+   /*     ListNodeMatrix LNM = new ListNodeMatrix();
+        for(int i = 0; i < 1000; i++)
         {
+
             LNM.addMain("" + i);
-            for(int k = 0; k < 5000; k++)
+            System.out.println("At cat "+ i);
+            for(int k = 0; k < 1000000; k++)
                 {
                 LNM.addSub(k, "" + k, i);
+
             }
         }
 
        // LNM.saveData();
-       // LNM.printAll();
+        LNM.printAll();
 
 
 
@@ -34,6 +37,8 @@ public class Driver {
         {
 
         }
+
+        */
     }
 
 }
