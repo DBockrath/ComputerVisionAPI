@@ -1,7 +1,9 @@
 package CatMatrix;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class ListNodeMatrix {
 	
@@ -309,7 +311,40 @@ public class ListNodeMatrix {
 		//return false;
 	}
 
-	
+
+	public void load(String cat)
+    {
+
+
+    }
+
+    public void loadCats()
+    {
+        try {
+            Scanner sc = new Scanner(new File("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\CatMatrix\\Storage\\Cats"));
+
+            String temp = sc.next();
+
+            char[] s = temp.toCharArray();
+            for(int i = 0; i < s.length; i++)
+            {
+                if (s[i] != ',')
+                {
+                    temp+= s[i];
+                }else
+                {
+                    addMain(temp);
+                    temp = "";
+                }
+            }
+
+        }catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+
+
 	public int getPos(String in) {
 		//replace this
 		//takes a category and returns the position in the list
