@@ -2,6 +2,8 @@ package CatMatrix;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -85,10 +87,14 @@ public class ListNodeMatrix {
 	public void addSub(Object object, String name, String cat)
 	{
 		ListNode cur = lastNode.getNext();
-		while(cur.getName() != cat) {
-			if(cur == lastNode) {
+		while(!cur.getName().equals(cat)) {
+
+			if(cur == lastNode && !cur.getName().equals(cat)) {
 				throw new NoSuchElementException("Bad");
-			}
+			}else if(cur.getName().equals(cat))
+            {
+                break;
+            }
 			cur = cur.getNext();
 		}
 
@@ -235,9 +241,8 @@ public class ListNodeMatrix {
 	{
 		try {
 			PrintWriter writer = null;
-			//writer.println("Hi Dan");
-			//writer.close();
 
+			String cats = "";
 			ListNode cur = lastNode.getNext();
 
 			while(cur != lastNode) {
@@ -245,6 +250,8 @@ public class ListNodeMatrix {
 //				System.out.println("Cat:" + cur.getName());
 //				System.out.println("");
 				tLastNode = (ListNode) cur.getValue();
+				cats += cur.getName();
+				cats += ",";
 
 				writer = new PrintWriter("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\CatMatrix\\Storage\\" + cur.getName() + ".txt", "UTF-8");
 
@@ -273,11 +280,14 @@ public class ListNodeMatrix {
 				writer.close();
 				cur = cur.getNext();
 
+
 			}
 
 //			System.out.println("Cat: " + lastNode.getName());
 //			System.out.println("");
 			tLastNode = (ListNode) cur.getValue();
+            cats += cur.getName();
+            cats+= ',';
 
 			writer = new PrintWriter("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\CatMatrix\\Storage\\" + lastNode.getName() + ".txt", "UTF-8");
 
@@ -302,6 +312,11 @@ public class ListNodeMatrix {
 			}
 			writer.close();
 
+			//prints out the cats
+            writer = new PrintWriter("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\CatMatrix\\Storage\\cats.txt", "UTF-8");
+            writer.print(cats);
+            writer.close();
+
 			return true;
 		}catch(Exception e)
 		{
@@ -312,8 +327,44 @@ public class ListNodeMatrix {
 	}
 
 
-	public void load(String cat)
-    {
+	public void loadString(String cat)
+    { //loads in the cats as string
+        ArrayList<String> input = new ArrayList<>();
+
+        try {
+            Scanner sc = new Scanner(new File("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\CatMatrix\\Storage\\" + cat + ".txt"));
+
+            String temp = "";
+            char[] s = null;
+            while(sc.hasNext())
+            {
+                s = sc.next().toCharArray();
+
+                for(int i = 0; i < s.length; i++)
+                {
+                    if (s[i] != ',')
+                    {
+                        temp += s[i];
+                    }else
+                    {
+                        //System.out.println(temp);
+                        input.add(temp);
+                        temp = "";
+                    }
+                }
+
+            }
+
+            while(!input.isEmpty())
+            {
+                String temp2 = input.remove(0);
+                addSub(input.remove(0), temp2,"" + cat);
+            }
+
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
 
 
     }
@@ -321,11 +372,11 @@ public class ListNodeMatrix {
     public void loadCats()
     {
         try {
-            Scanner sc = new Scanner(new File("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\CatMatrix\\Storage\\Cats"));
+            Scanner sc = new Scanner(new File("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\CatMatrix\\Storage\\cats.txt"));
 
-            String temp = sc.next();
+            String temp = "";
 
-            char[] s = temp.toCharArray();
+            char[] s = sc.next().toCharArray();
             for(int i = 0; i < s.length; i++)
             {
                 if (s[i] != ',')
@@ -344,6 +395,23 @@ public class ListNodeMatrix {
         }
     }
 
+
+    public void deloadAllCats()
+    {
+        ListNode cur = lastNode.getNext();
+
+        while(cur != lastNode)
+        {
+            cur.setValue(null);
+            cur = cur.getNext();
+        }
+        lastNode.setValue(null);
+    }
+
+    public void deladCat(String cat)
+    {
+
+    }
 
 	public int getPos(String in) {
 		//replace this
