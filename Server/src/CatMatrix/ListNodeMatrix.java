@@ -146,6 +146,8 @@ public class ListNodeMatrix {
 
 		}
 
+		loadString(cur.getName());
+
 		tLastNode = (ListNode) cur.getValue();
 		cur = tLastNode.getNext();
 		curPos = 0;
@@ -157,10 +159,59 @@ public class ListNodeMatrix {
 
 		}
 
+		deloadAllCats();
+
 		return cur.getValue();
 
 	}
-	
+
+	public Object getSubObject(String cat, String name)
+	{
+		ListNode cur = lastNode.getNext();
+
+		while(!cur.getName().equals(cat)) {
+			if(cur == lastNode && !lastNode.getName().equals(cat))
+			{
+				throw new NoSuchElementException("that cat does not exist");
+
+			}else if(lastNode.getName().equals(cat) && cur == lastNode)
+			{
+				break;
+			}
+			cur = cur.getNext();
+
+		}
+
+		loadString(cur.getName()); //loads in the cat so it can be searched
+
+		tLastNode = (ListNode) cur.getValue();
+		cur = tLastNode.getNext();
+
+		while(!cur.getName().equals(name))
+		{
+
+			if(cur == tLastNode && !tLastNode.getName().equals(name))
+			{
+				throw new NoSuchElementException("That item does not exist");
+			}else if(tLastNode == cur && tLastNode.getName().equals(name))
+			{
+				break;
+			}
+
+			cur = cur.getNext();
+
+		}
+
+		deloadAllCats();
+		return cur.getValue();
+
+	}
+
+	public Object getSubName(String cat, Object input)
+	{
+		return null;
+	}
+
 	public void removeMain(int pos) { //removes a main node
 		
 	}
@@ -408,7 +459,7 @@ public class ListNodeMatrix {
         lastNode.setValue(null);
     }
 
-    public void deladCat(String cat)
+    public void deloadCat(String cat)
     {
 
     }
