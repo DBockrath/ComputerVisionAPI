@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class BitString {
+public class BitString {
 
     private ArrayList<Character> bits;
 
-    BitString(String text) {
+    public BitString(String text) {
 
         bits = new ArrayList<>(text.length());
 
