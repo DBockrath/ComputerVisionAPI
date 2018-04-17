@@ -24,6 +24,11 @@ public class ListNode {
 		this.name = name;
 
 	}
+
+	public ListNode()
+	{
+
+	}
 	
 	//Getters and Setters
 	public ListNode getNext() {

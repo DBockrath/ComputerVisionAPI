@@ -420,6 +420,48 @@ public class ListNodeMatrix {
 
     }
 
+    public void laodBitString(String cat)
+	{
+		//not done yet!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		ArrayList<String> input = new ArrayList<>();
+
+		try {
+			Scanner sc = new Scanner(new File("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\CatMatrix\\Storage\\" + cat + ".txt"));
+
+			String temp = "";
+			char[] s = null;
+			while(sc.hasNext())
+			{
+				s = sc.next().toCharArray();
+
+				for(int i = 0; i < s.length; i++)
+				{
+					if (s[i] != ',')
+					{
+						temp += s[i];
+					}else
+					{
+						//System.out.println(temp);
+						input.add(temp);
+						temp = "";
+					}
+				}
+
+			}
+
+			while(!input.isEmpty())
+			{
+				String temp2 = input.remove(0);
+				addSub(input.remove(0), temp2,"" + cat);
+			}
+
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+
+	}
+
     public void loadCats()
     {
         try {
