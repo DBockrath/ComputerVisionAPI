@@ -1,3 +1,5 @@
+package NeuralNetwork;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -219,6 +221,31 @@ public class BitString {
 
         return (text.contains("2") || text.contains("3") || text.contains("4") || text.contains("5") || text.contains("6") || text.contains("7") || text.contains("8") || text.contains("9")
                 || text.contains("A") || text.contains("B") || text.contains("C") || text.contains("D") || text.contains("E") || text.contains("F"));
+
+    }
+
+    public double[] getDoubleArray() {
+
+        boolean wasCompressed = false;
+
+        if (isCompressed()) {
+
+            decompress();
+            wasCompressed = true;
+
+        }
+
+        String string = toString();
+        double[] returnArray = new double[string.length()];
+
+        for (int i = 0; i < string.length(); i++) {
+
+            returnArray[i] = string.charAt(i);
+
+        }
+
+        if (wasCompressed) compress();
+        return returnArray;
 
     }
 
