@@ -1,5 +1,7 @@
 package CatMatrix;
 
+import NeuralNetwork.BitString;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -212,20 +214,30 @@ public class ListNodeMatrix {
 		return null;
 	}
 
-	public void removeMain(int pos) { //removes a main node
+	public void removeCat(String o) {
 		
 	}
-	
-	public void removeMain(String o) {
-		
-	}
-	
-	public void removeSub(int posM, int posSub) { //removes a sub at a certain pos in the sub
-		
-	}
-	
-	public void removeSub(int posM, Object o) { //removes a sub that matches o\
-		
+
+	public void removeSub(String cat, String name) { //removes a sub that matches o\
+		ListNode cur = lastNode.getNext();
+
+		while(!cur.getName().equals(cat))
+		{
+			if(lastNode.getName().equals(cat))
+			{
+				cur = lastNode;
+				break;
+			}
+			cur = cur.getNext();
+		}
+
+		loadString(cur.getName());
+
+		tLastNode = (ListNode) cur.getValue();
+		cur = tLastNode.getNext();
+
+
+
 	}
 	
 	public void printAll() {
@@ -250,8 +262,6 @@ public class ListNodeMatrix {
 					System.out.println(curt.getName() + " contains object type:" + curt.getValue().getClass() + " :" + curt.getValue() );
 					curt = curt.getNext();
 
-				}
-				
 				System.out.println(tLastNode.getName());
 				
 			}
@@ -377,6 +387,10 @@ public class ListNodeMatrix {
 		//return false;
 	}
 
+	public void reClassify(String cat, String name, String newCat)
+	{ //not done yet
+
+	}
 
 	public void loadString(String cat)
     { //loads in the cats as string
@@ -420,10 +434,9 @@ public class ListNodeMatrix {
 
     }
 
-    public void laodBitString(String cat)
+    public void loadBitString(String cat)
 	{
-		//not done yet!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		ArrayList<String> input = new ArrayList<>();
+		ArrayList<BitString> input = new ArrayList<>();
 
 		try {
 			Scanner sc = new Scanner(new File("C:\\Users\\happy\\Desktop\\ComputerVisionAPI\\ComputerVisionAPI\\Server\\src\\CatMatrix\\Storage\\" + cat + ".txt"));
@@ -442,7 +455,7 @@ public class ListNodeMatrix {
 					}else
 					{
 						//System.out.println(temp);
-						input.add(temp);
+						input.add(new BitString(temp));
 						temp = "";
 					}
 				}
@@ -451,7 +464,7 @@ public class ListNodeMatrix {
 
 			while(!input.isEmpty())
 			{
-				String temp2 = input.remove(0);
+				String temp2 = input.remove(0).toString();
 				addSub(input.remove(0), temp2,"" + cat);
 			}
 
@@ -520,7 +533,7 @@ public class ListNodeMatrix {
 
 	}
 
-	public void printCat(int pos)
+	public void printCat(String cat)
 	{
 
 	}
