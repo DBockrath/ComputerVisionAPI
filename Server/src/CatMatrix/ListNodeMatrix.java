@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class ListNodeMatrix {
+class ListNodeMatrix {
 	
 	private ListNode lastNode;
 	private ListNode tLastNode;
@@ -119,7 +119,7 @@ public class ListNodeMatrix {
 	public Object getMainAdress(int pos) {
 
 		ListNode cur = lastNode;
-		for(int i = 0; i < pos ; i++) cur = cur.getNext();
+		for(int i = 0; i < pos; i++) cur = cur.getNext();
 
 		return cur.getValue();
 
@@ -245,51 +245,52 @@ public class ListNodeMatrix {
 		ListNode cur = lastNode.getNext();
 
 		while(cur != lastNode) {
-			
+
 			System.out.println("Cat:" + cur.getName());
 			System.out.println("");
 			tLastNode = (ListNode) cur.getValue();
 
-			if(cur.getValue() == null) System.out.println("Cat is empty");
+			if (cur.getValue() == null) System.out.println("Cat is empty");
 			else {
-				
-				if(tLastNode.getNext() == null) throw new NoSuchElementException("Inserted wrong");
-				
+
+				if (tLastNode.getNext() == null) throw new NoSuchElementException("Inserted wrong");
+
 				ListNode curt = tLastNode.getNext();
 
-				while(curt != tLastNode) {
+				while (curt != tLastNode) {
 
-					System.out.println(curt.getName() + " contains object type:" + curt.getValue().getClass() + " :" + curt.getValue() );
+					System.out.println(curt.getName() + " contains object type:" + curt.getValue().getClass() + " :" + curt.getValue());
 					curt = curt.getNext();
 
+					System.out.println(tLastNode.getName());
+
+				}
+
+				cur = cur.getNext();
+
+			}
+
+			System.out.println("Cat: " + lastNode.getName());
+			System.out.println("");
+			tLastNode = (ListNode) cur.getValue();
+
+			if (cur.getValue() == null) System.out.println("Cat is empty");
+			else {
+
+				if (tLastNode.getNext() == null) throw new NoSuchElementException("Inserted wrong");
+
+				ListNode curt = tLastNode.getNext();
+
+				while (curt != tLastNode) {
+
+					System.out.println(curt.getName() + " contains object type:" + curt.getValue().getClass() + " :" + curt.getValue());
+					curt = curt.getNext();
+
+				}
+
 				System.out.println(tLastNode.getName());
-				
-			}
-
-			cur = cur.getNext();
-
-		}
-		
-		System.out.println("Cat: " + lastNode.getName());
-		System.out.println("");
-		tLastNode = (ListNode) cur.getValue();
-
-		if(cur.getValue() == null) System.out.println("Cat is empty");
-		else {
-			
-			if(tLastNode.getNext() == null) throw new NoSuchElementException("Inserted wrong");
-			
-			ListNode curt = tLastNode.getNext();
-
-			while(curt != tLastNode) {
-
-				System.out.println(curt.getName() + " contains object type:" + curt.getValue().getClass() + " :" + curt.getValue() );
-				curt = curt.getNext();
 
 			}
-			
-			System.out.println(tLastNode.getName());
-			
 		}
 		
 	}
