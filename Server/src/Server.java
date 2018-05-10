@@ -1,4 +1,4 @@
-import CatMatrix.ListNodeMatrix;
+//import CatMatrix.ListNodeMatrix;
 import NeuralNetwork.NeuralNetwork;
 
 import java.io.DataInputStream;
@@ -116,49 +116,7 @@ public class Server extends Thread {
 
     public static void main(String[] args) {
 
-        ListNodeMatrix LNM = new ListNodeMatrix();
-        boolean testing = false;
-
-        if (testing) {
-
-            for(int i = 0; i < 15; i++)
-            {
-                LNM.addMain(null, ""+ i);
-                for(int k = 0; k < 20; k++)
-                {
-                    LNM.addSub(k, ""+ k + (int)System.currentTimeMillis(), i);
-                }
-            }
-
-            LNM.printAll();
-            System.out.println("" + LNM.saveData());
-
-            throw new NoSuchElementException("Testing finished, stopping code!!");
-        }
-        try {
-
-            Scanner scanner = new Scanner(new File("C:\\Users\\Public\\Documents\\ServerData.txt"));
-
-            String rName = scanner.nextLine();
-            String dName = scanner.nextLine();
-            int port = Integer.parseInt(scanner.nextLine());
-
-            try {
-
-                Thread t = new Server(port);
-                t.start();
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-
-            }
-
-        } catch (IOException er) {
-
-            System.out.println("Error reading from file");
-
-        }
+//
 
     }
 

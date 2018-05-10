@@ -11,6 +11,7 @@ public class Driver {
 
 
         NeuralNet d1 = new NeuralNet();
+
         System.out.println("" + d1.getName(new BitString("10100000000000000000000")));
 
 
