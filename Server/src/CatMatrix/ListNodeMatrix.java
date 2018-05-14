@@ -115,6 +115,12 @@ class ListNodeMatrix {
 
 		}
 	}
+
+	public int numNodes() {
+
+		return 100;
+
+	}
 	
 	public Object getMainAdress(int pos) {
 
