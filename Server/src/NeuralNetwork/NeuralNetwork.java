@@ -1,7 +1,5 @@
 package NeuralNetwork;
 
-import java.util.stream.IntStream;
-
 public class NeuralNetwork {
 
     private Matrix weightMatrix;
@@ -18,9 +16,9 @@ public class NeuralNetwork {
 
     }
 
-    public void train(double[] input) throws Exception {
+    public void train(BitString input) throws Exception {
 
-        double[] bipolarInput = toBipolar(input);
+        double[] bipolarInput = input.getBipolarArray();
         Matrix bipolarMatrix = Matrix.toRowMatrix(bipolarInput);
         Matrix transposeBipolarMatrix = bipolarMatrix.transpose();
         Matrix multiplyMatrix = transposeBipolarMatrix.multiply(bipolarMatrix);
@@ -29,13 +27,12 @@ public class NeuralNetwork {
 
     }
 
-    public double[] run(double[] input) {
+    public BitString run(BitString input) {
 
-        double[] bipolarInput  = toBipolar(input);
-        double[] output = new double[input.length];
-        Matrix bipolarMatrix = Matrix.toRowMatrix(bipolarInput);
+        BitString output = new BitString(input.Length());
+        Matrix bipolarMatrix = Matrix.toRowMatrix(input.getBipolarArray());
 
-        IntStream.range(0, input.length).forEach( column -> {
+        for (int column = 0; column < input.Length(); column++) {
 
             try {
 
@@ -44,11 +41,11 @@ public class NeuralNetwork {
 
                 if (dotProductResult > 0) {
 
-                    output[column] = 1.00;
+                    output.set(column, '1');
 
                 } else {
 
-                    output[column] = 0;
+                    output.set(column, '0');
 
                 }
 
@@ -58,33 +55,9 @@ public class NeuralNetwork {
 
             }
 
-        });
+        }
 
         return output;
-
-    }
-
-    private static double[] toBipolar(double[] pattern) {
-
-        double[] bipolarPattern = new double[pattern.length];
-
-        IntStream.range(0, pattern.length).forEach( row -> {
-
-            bipolarPattern[row] = (pattern[row] * 2) - 1;
-
-        });
-
-        return bipolarPattern;
-
-    }
-
-    static double[] fromBipolar(double[] bipolarPattern) {
-
-        double[] pattern = new double[bipolarPattern.length];
-
-        IntStream.range(0, bipolarPattern.length).forEach( row -> pattern[row] = (bipolarPattern[row] + 1) / 2);
-
-        return pattern;
 
     }
 

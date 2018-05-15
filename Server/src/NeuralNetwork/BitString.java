@@ -265,6 +265,22 @@ public class BitString {
 
     }
 
+    public void set(int pos, char val) {
+
+        decompress();
+        bits.set(pos, val);
+        compress();
+
+    }
+
+    public void set(int pos, int val) {
+
+        decompress();
+        bits.set(pos, (char)(val + '0'));
+        compress();
+
+    }
+
     public int[][] getImage() {
 
         int[][] image = new int[(int)Math.sqrt(bits.size())][(int)Math.sqrt(bits.size())];
@@ -281,6 +297,19 @@ public class BitString {
         }
 
         return image;
+
+    }
+
+    public double[] getBipolarArray() {
+
+        decompress();
+        double[] bipolarArray = new double[bits.size()];
+
+        for (int row = 0; row < bits.size(); row++)
+            bipolarArray[row] = (bits.get(row) * 2) - 1;
+
+        compress();
+        return bipolarArray;
 
     }
 
