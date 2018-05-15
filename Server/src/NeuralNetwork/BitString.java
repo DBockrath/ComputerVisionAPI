@@ -8,6 +8,9 @@ public class BitString {
 
     private ArrayList<Character> bits;
 
+    private final int rawImagePixels = 230400;
+    private final int numOfPixels = 57600;
+
     public BitString(String text) {
 
         bits = new ArrayList<>(text.length());
@@ -18,7 +21,29 @@ public class BitString {
 
         }
 
-        if (!isCompressed()) compress();
+        if (isCompressed()) decompress();
+        if (bits.size() == rawImagePixels) resize();
+        compress();
+
+    }
+
+    public BitString(int[][] image) {
+
+        bits = new ArrayList<>((int)Math.pow(image.length, 2));
+
+        for (int row = 0; row < image.length; row++) {
+
+            for (int col = 0; col < image[0].length; col++) {
+
+                bits.add((char)image[row][col]);
+
+            }
+
+        }
+
+        if (isCompressed()) decompress();
+        if (bits.size() == rawImagePixels) resize();
+        compress();
 
     }
 
@@ -112,7 +137,7 @@ public class BitString {
                 case '7':
                 case '8':
                 case '9':
-                    length = Character.getNumericValue(bits.get(i +1));
+                    length = Character.getNumericValue(bits.get(i + 1));
                     break;
 
                 case 'A':
@@ -153,6 +178,31 @@ public class BitString {
 
     }
 
+    private void resize() {
+
+        if (isCompressed()) decompress();
+
+        ArrayList<Character> newBits = new ArrayList<>(numOfPixels);
+        int[][] matrix = new int[(int)Math.sqrt(numOfPixels)][(int)Math.sqrt(numOfPixels)];
+        int i = 0;
+
+        for (int row = 0; row < matrix.length; row++) {
+
+            if (row != 0) i += 478;
+
+            for (int col = 0; col < matrix[0].length; col++) {
+
+                matrix[row][col] = Math.round((bits.get(i + 239) + bits.get(i++) + bits.get(i + 239) + bits.get(i++)) / 4);
+                newBits.add((char)(matrix[row][col] + '0'));
+
+            }
+
+        }
+
+        bits = newBits;
+
+    }
+
     private String convertToString() {
 
         StringBuilder builder = new StringBuilder(bits.size());
@@ -182,7 +232,7 @@ public class BitString {
             case 7:
             case 8:
             case 9:
-                extension = (char)(length +'0');
+                extension = (char)(length + '0');
                 break;
 
             case 10:
@@ -215,12 +265,22 @@ public class BitString {
 
     }
 
-    boolean isCompressed() {
+    public int[][] getImage() {
 
-        String text = convertToString();
+        int[][] image = new int[(int)Math.sqrt(bits.size())][(int)Math.sqrt(bits.size())];
+        int i = 0;
 
-        return (text.contains("2") || text.contains("3") || text.contains("4") || text.contains("5") || text.contains("6") || text.contains("7") || text.contains("8") || text.contains("9")
-                || text.contains("A") || text.contains("B") || text.contains("C") || text.contains("D") || text.contains("E") || text.contains("F"));
+        for (int row = 0; row < image.length; row++) {
+
+            for (int col = 0; col < image[0].length; col++) {
+
+                image[row][col] = Character.getNumericValue(bits.get(i++));
+
+            }
+
+        }
+
+        return image;
 
     }
 
@@ -246,6 +306,52 @@ public class BitString {
 
         if (wasCompressed) compress();
         return returnArray;
+
+    }
+
+    public boolean isCompressed() {
+
+        String text = convertToString();
+
+        return (text.contains("2") || text.contains("3") || text.contains("4") || text.contains("5") || text.contains("6") || text.contains("7") || text.contains("8") || text.contains("9")
+                || text.contains("A") || text.contains("B") || text.contains("C") || text.contains("D") || text.contains("E") || text.contains("F"));
+
+    }
+
+    public int Length() {
+
+        if (isCompressed()) decompress();
+        return bits.size();
+
+    }
+
+    public char getBit(int pos) {
+
+        if (isCompressed()) decompress();
+        return bits.get(pos);
+
+    }
+
+    public void delete() {
+
+        bits = null;
+
+    }
+
+    public double calcPercentDeviation(BitString other) {
+
+        if (isCompressed()) decompress();
+        if (other.isCompressed()) other.decompress();
+
+        int numOfDeviations = 0;
+
+        for (int i = 0; i < bits.size(); i++) {
+
+            if (bits.get(1) != other.getBit(i)) numOfDeviations += 1;
+
+        }
+
+        return (bits.size() - numOfDeviations) / bits.size();
 
     }
 
