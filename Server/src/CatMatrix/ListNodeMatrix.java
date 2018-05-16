@@ -10,6 +10,8 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 class ListNodeMatrix {
+
+    // TODO: Need to make body of getSubNodes() and numCats()
 	
 	private ListNode lastNode;
 	private ListNode tLastNode;
@@ -116,13 +118,13 @@ class ListNodeMatrix {
 		}
 	}
 
-	public int numNodes() {
+	public int numCats() {
 
 		return 100;
 
 	}
 	
-	public Object getMainAdress(int pos) {
+	public Object getMainValue(int pos) {
 
 		ListNode cur = lastNode;
 		for(int i = 0; i < pos; i++) cur = cur.getNext();
@@ -131,7 +133,7 @@ class ListNodeMatrix {
 
 	}
 	
-	public Object getMainName(int pos) {
+	public String getMainName(int pos) {
 
 		ListNode cur = lastNode;
 		for(int i = 0; i < pos; i++) cur = cur.getNext();
@@ -219,6 +221,12 @@ class ListNodeMatrix {
 	{
 		return null;
 	}
+
+	public int numSubNodes(int cat) {
+
+	    return 0;
+
+    }
 
 	public void removeCat(String o) {
 		
