@@ -1,8 +1,11 @@
 package NeuralNetwork;
 
+import CatMatrix.ManipulateBitString;
+
 public class NeuralNetwork {
 
     private Matrix weightMatrix;
+    private ManipulateBitString manipulateBitString = new ManipulateBitString();
 
     public NeuralNetwork(int size) {
 
@@ -18,7 +21,7 @@ public class NeuralNetwork {
 
     public void train(BitString input) throws Exception {
 
-        double[] bipolarInput = input.getBipolarArray();
+        double[] bipolarInput = manipulateBitString.toBipolarArray(input);
         Matrix bipolarMatrix = Matrix.toRowMatrix(bipolarInput);
         Matrix transposeBipolarMatrix = bipolarMatrix.transpose();
         Matrix multiplyMatrix = transposeBipolarMatrix.multiply(bipolarMatrix);
@@ -29,10 +32,10 @@ public class NeuralNetwork {
 
     public BitString run(BitString input) {
 
-        BitString output = new BitString(input.Length());
-        Matrix bipolarMatrix = Matrix.toRowMatrix(input.getBipolarArray());
+        BitString output = new BitString(input.size());
+        Matrix bipolarMatrix = Matrix.toRowMatrix(manipulateBitString.toBipolarArray(input));
 
-        for (int column = 0; column < input.Length(); column++) {
+        for (int column = 0; column < input.size(); column++) {
 
             try {
 
