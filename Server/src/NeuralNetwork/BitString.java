@@ -6,9 +6,15 @@ import java.util.regex.Pattern;
 
 public class BitString {
 
+    /*
+    An image input will always be a square that is either 480x480 pixels or 240x240 pixels. The app will auto set this
+    A BitString is stored as an ArrayList of chars called bits
+     */
+
     private ArrayList<Character> bits;
     private final int numOfPixels = 57600;
 
+    // Constructs bits using a String
     public BitString(String text) {
 
         bits = new ArrayList<>(text.length());
@@ -21,6 +27,7 @@ public class BitString {
 
     }
 
+    // Constructs bits using an image
     public BitString(int[][] image) {
 
         bits = new ArrayList<>((int)Math.pow(image.length, 2));
@@ -35,6 +42,7 @@ public class BitString {
 
     }
 
+    // Constructs bits with the given length and each bit equals 0
     public BitString(int length) {
 
         bits = new ArrayList<>(length);
@@ -44,6 +52,7 @@ public class BitString {
 
     }
 
+    // Takes bits and resizes it to be a 240x240 pixel image
     private void resize() {
 
         decompress();
@@ -69,6 +78,7 @@ public class BitString {
 
     }
 
+    // Compresses bits using hexadecimel digits to represent the number of the same bits in a given group
     private void compress() {
 
         if (!isCompressed()) {
@@ -144,6 +154,7 @@ public class BitString {
 
     }
 
+    // Gets the hexadecimel digit based on the number of bits in a group
     private char getExtension(int length) {
 
         char extension = '1';
@@ -192,6 +203,7 @@ public class BitString {
 
     }
 
+    // Decompresses bits so it is back to a standard bit string
     private void decompress() {
 
         if (isCompressed()) {
@@ -252,6 +264,7 @@ public class BitString {
 
     }
 
+    // Returns true if bits is in compressed form
     public boolean isCompressed() {
 
         String text = getCurrentString();
@@ -261,12 +274,15 @@ public class BitString {
 
     }
 
+    // Sets bits to null
     public void deleteBits() {
 
         bits = null;
 
     }
 
+    // Pre: Takes in a BitString to compare with bits
+    // Post: Returns the percent deviation between bits and the given BitString in decompressed form
     public double calcPercentDeviation(BitString other) {
 
         decompress();
@@ -277,7 +293,7 @@ public class BitString {
 
         for (int i = 0; i < size; i++) {
 
-            if (bits.get(1) != other.get(i)) numOfDeviations += 1;
+            if (bits.get(1) != other.getChar(i)) numOfDeviations += 1;
 
         }
 
@@ -287,6 +303,38 @@ public class BitString {
 
     }
 
+    // Pre: Takes in an array of BitStrings
+    // Post: Averages bits with given BitStrings and returns a new BitString that contains the average values
+    public BitString calcAverageBitString(BitString[] bitStrings) {
+
+        BitString averageBitString = new BitString(bits.size());
+
+        decompress();
+
+        for (BitString bitString1 : bitStrings)
+            bitString1.decompress();
+
+        for (int bit = 0; bit < bits.size(); bit++) {
+
+            int sum = Character.getNumericValue(bits.get(bit));
+
+            for (BitString bitString : bitStrings)
+                sum += bitString.getInt(bit);
+
+            averageBitString.set(bit, Math.round(sum / bitStrings.length + 1));
+
+        }
+
+        for (BitString bitString : bitStrings)
+            bitString.compress();
+
+        compress();
+
+        return averageBitString;
+
+    }
+
+    // Returns the length of bits in decompressed form
     public int Length() {
 
         decompress();
@@ -298,7 +346,9 @@ public class BitString {
 
     }
 
-    public char get(int pos) {
+    // Pre: Takes in an int that represents the position of the desired bit
+    // Post: Returns the bit at the given position as a char
+    public char getChar(int pos) {
 
         decompress();
 
@@ -309,6 +359,20 @@ public class BitString {
 
     }
 
+    // Pre: Takes in an int that represents the position of the desired bit
+    // Post: Returns the bit at the given position as an int
+    public int getInt(int pos) {
+
+        decompress();
+
+        int bit = Character.getNumericValue(bits.get(pos));
+
+        compress();
+        return bit;
+
+    }
+
+    // Takes an int which represents the bit to set and the desired char to set it as and sets the given bit with the given char
     public void set(int pos, char val) {
 
         decompress();
@@ -317,6 +381,7 @@ public class BitString {
 
     }
 
+    // Takes an int which represents the bit to set and the desired int to set it as and sets the given bit with the given int converted to a char
     public void set(int pos, int val) {
 
         decompress();
@@ -325,6 +390,7 @@ public class BitString {
 
     }
 
+    // Returns what the BitString would look like as a 240x240 pixel image
     public int[][] getImage() {
 
         decompress();
@@ -341,6 +407,7 @@ public class BitString {
 
     }
 
+    // Returns the bipolar representation of bits
     public double[] getBipolarArray() {
 
         decompress();
@@ -354,6 +421,7 @@ public class BitString {
 
     }
 
+    // Returns bits as a double array
     public double[] getDoubleArray() {
 
         decompress();
@@ -369,6 +437,7 @@ public class BitString {
 
     }
 
+    // Returns bits as a string in its current state
     public String getCurrentString() {
 
         StringBuilder builder = new StringBuilder(bits.size());
@@ -380,6 +449,7 @@ public class BitString {
 
     }
 
+    // Returns bits in its compressed state
     public String getCompressedString() {
 
         compress();
@@ -393,6 +463,7 @@ public class BitString {
 
     }
 
+    // Returns bits in its decompressed state
     public String getDecompressedString() {
 
         decompress();
