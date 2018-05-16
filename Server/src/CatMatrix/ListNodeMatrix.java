@@ -15,6 +15,12 @@ class ListNodeMatrix {
 	
 	private ListNode lastNode;
 	private ListNode tLastNode;
+
+	public ListNode getLastNode()
+	{
+		return lastNode;
+	}
+
 	
 	private ListNode defualtCat; //I think there is a way not to have this but whatever not important
 	
@@ -117,12 +123,6 @@ class ListNodeMatrix {
 
 		}
 	}
-
-	public int numCats() {
-
-		return 100;
-
-	}
 	
 	public Object getMainValue(int pos) {
 
@@ -132,7 +132,39 @@ class ListNodeMatrix {
 		return cur.getValue();
 
 	}
-	
+
+	public Object getMainValue(String name)
+	{
+		ListNode cur = lastNode.getNext();
+		while(cur != lastNode) {
+			if (cur.getName().equals(name))
+				return cur.getName();
+		}
+
+		if(lastNode.getName().equals(name))
+		{
+			return cur.getName();
+		}
+
+		return null; //TODO change to another statement
+	}
+
+	public Object getMainName(String name)
+	{
+		ListNode cur = lastNode.getNext();
+		while(cur != lastNode) {
+			if (cur.getName().equals(name))
+				return cur.getName();
+		}
+
+		if(lastNode.getName().equals(name))
+		{
+			return cur.getName();
+		}
+
+		return null; //TODO change to another statement
+	}
+
 	public String getMainName(int pos) {
 
 		ListNode cur = lastNode;
@@ -221,12 +253,6 @@ class ListNodeMatrix {
 	{
 		return null;
 	}
-
-	public int numSubNodes(int cat) {
-
-	    return 0;
-
-    }
 
 	public void removeCat(String o) {
 		

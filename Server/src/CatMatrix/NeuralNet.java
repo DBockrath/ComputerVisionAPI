@@ -3,6 +3,8 @@ package CatMatrix;
 import NeuralNetwork.BitString;
 import NeuralNetwork.Matrix;
 
+import java.util.List;
+
 public class NeuralNet extends ListNodeMatrix {
 
     /*
@@ -27,13 +29,16 @@ public class NeuralNet extends ListNodeMatrix {
     // decideCategory will calc the deviation percentage between a cat and an input
     // Each category will be and average of the sub objects. Use calcAverageBitString() to do this
 
-    private void trainCategoryWeightMatrix() throws Exception {
+    private void trainCategoryWeightMatrix() throws Exception { //1s & 0s are heavy
 
         categoryWeightMatrix = new Matrix(numOfNeurons, numOfNeurons);
 
-        for (int cat = 0; cat < numCats(); cat++) {
 
-            BitString input = (BitString) super.getMainValue(cat);
+        ListNode cur = super.getLastNode().getNext();
+
+        while(cur != super.getLastNode()) {
+
+            BitString input = new BitString(cur.getName());
             double[] bipolarInput = input.getBipolarArray();
             Matrix bipolarMatrix = Matrix.toRowMatrix(bipolarInput);
             Matrix transposeBipolarMatrix = bipolarMatrix.transpose();
@@ -41,7 +46,19 @@ public class NeuralNet extends ListNodeMatrix {
             Matrix subtractMatrix = multiplyMatrix.subtract(Matrix.identity(categoryWeightMatrix.getData().length));
             categoryWeightMatrix = categoryWeightMatrix.add(subtractMatrix);
 
+            cur = cur.getNext();
+
         }
+
+        //for last node case
+        BitString input = new BitString(super.getLastNode().getName());
+        double[] bipolarInput = input.getBipolarArray();
+        Matrix bipolarMatrix = Matrix.toRowMatrix(bipolarInput);
+        Matrix transposeBipolarMatrix = bipolarMatrix.transpose();
+        Matrix multiplyMatrix = transposeBipolarMatrix.multiply(bipolarMatrix);
+        Matrix subtractMatrix = multiplyMatrix.subtract(Matrix.identity(categoryWeightMatrix.getData().length));
+        categoryWeightMatrix = categoryWeightMatrix.add(subtractMatrix);
+
 
     }
 
@@ -79,13 +96,18 @@ public class NeuralNet extends ListNodeMatrix {
 
     }
 
-    private BitString runSubNetwork(BitString input, int category) throws Exception {
+    private BitString runSubNetwork(BitString input, ListNode cat) throws Exception {
 
         Matrix subWeightMatrix = new Matrix(numOfNeurons, numOfNeurons);
 
-        for (int pos = 0; pos < super.numSubNodes(category); pos++) {
+        ListNode cur = (ListNode) cat.getValue();
+        cur  = cur.getNext();
+        ListNode lastNode = (ListNode) cat.getValue();
 
-            BitString subObject = (BitString) super.getSubObject(category, pos);
+        while(cur != lastNode)
+        {
+
+            BitString subObject = (BitString) super.getSubObject(cat.getName(), cur.getName());
             double[] bipolarInput = subObject.getBipolarArray();
             Matrix bipolarMatrix = Matrix.toRowMatrix(bipolarInput);
             Matrix transposeBipolarMatrix = bipolarMatrix.transpose();
@@ -93,17 +115,27 @@ public class NeuralNet extends ListNodeMatrix {
             Matrix subtractMatrix = multiplyMatrix.subtract(Matrix.identity(subWeightMatrix.getData().length));
             subWeightMatrix = subWeightMatrix.add(subtractMatrix);
 
+            cur = cur.getNext();
         }
 
+        //lastNode case
+        BitString subObject = (BitString) super.getSubObject(cat.getName(), cur.getName());
+        double[] bipolarInput = subObject.getBipolarArray();
+        Matrix bipolarMatrix = Matrix.toRowMatrix(bipolarInput);
+        Matrix transposeBipolarMatrix = bipolarMatrix.transpose();
+        Matrix multiplyMatrix = transposeBipolarMatrix.multiply(bipolarMatrix);
+        Matrix subtractMatrix = multiplyMatrix.subtract(Matrix.identity(subWeightMatrix.getData().length));
+        subWeightMatrix = subWeightMatrix.add(subtractMatrix);
+
         BitString output = new BitString(input.Length());
-        Matrix bipolarMatrix = Matrix.toRowMatrix(input.getBipolarArray());
+        Matrix inputBipolarMatrix = Matrix.toRowMatrix(input.getBipolarArray());
 
         for (int column = 0; column < input.Length(); column++) {
 
             try {
 
                 Matrix columnMatrix = subWeightMatrix.getColumnMatrix(column);
-                double dotProductResult = bipolarMatrix.dotProduct(columnMatrix);
+                double dotProductResult = inputBipolarMatrix.dotProduct(columnMatrix);
 
                 if (dotProductResult > 0) {
 
