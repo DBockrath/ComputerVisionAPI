@@ -3,6 +3,9 @@ package CatMatrix;
 import NeuralNetwork.BitString;
 import NeuralNetwork.Matrix;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NeuralNet extends ListNodeMatrix {
 
     /*
@@ -101,13 +104,15 @@ public class NeuralNet extends ListNodeMatrix {
 
     }
 
-    private BitString runSubNetwork(BitString input, ListNode cat) throws Exception {
+    private ListNode runSubNetwork(BitString input, ListNode cat) throws Exception {
 
         Matrix subWeightMatrix = new Matrix(numOfNeurons, numOfNeurons);
 
         ListNode cur = (ListNode) cat.getValue();
         cur  = cur.getNext();
         ListNode lastNode = (ListNode) cat.getValue();
+
+        ArrayList<ListNode> temp = new ArrayList<>();
 
         while(cur != lastNode) {
 
@@ -119,18 +124,21 @@ public class NeuralNet extends ListNodeMatrix {
             Matrix subtractMatrix = multiplyMatrix.subtract(Matrix.identity(subWeightMatrix.getData().length));
             subWeightMatrix = subWeightMatrix.add(subtractMatrix);
 
+            temp.add(cur);
             cur = cur.getNext();
 
         }
 
         // For last node case
-        BitString subObject = (BitString) super.getSubObject(cat.getName(), cur.getName());
+        BitString subObject = (BitString) super.getSubObject(cat.getName(), lastNode.getName());
         double[] bipolarInput = manipulateBitString.toBipolarArray(subObject);
         Matrix bipolarMatrix = Matrix.toRowMatrix(bipolarInput);
         Matrix transposeBipolarMatrix = bipolarMatrix.transpose();
         Matrix multiplyMatrix = transposeBipolarMatrix.multiply(bipolarMatrix);
         Matrix subtractMatrix = multiplyMatrix.subtract(Matrix.identity(subWeightMatrix.getData().length));
         subWeightMatrix = subWeightMatrix.add(subtractMatrix);
+        temp.add(lastNode);
+
 
         BitString output = new BitString(input.size());
         Matrix inputBipolarMatrix = Matrix.toRowMatrix(manipulateBitString.toBipolarArray(input));
@@ -160,13 +168,23 @@ public class NeuralNet extends ListNodeMatrix {
 
         }
 
-        return output;
+        while(!temp.isEmpty())
+        {
+            if(temp.get(temp.size()- 1).getValue().toString().equals(output))
+            {
+                return temp.get(temp.size()-1);
+            }
+            temp.remove(temp.size()-1);
+        }
 
+        //return output.toString();
+
+        return null;
     }
 
     private ListNode decideCategory(BitString input) {
 
-        BitString output = runCategoryNetwork(input);
+        BitString result = runCategoryNetwork(input);
 
         int numCats = 1;
         ListNode c = super.getLastNode().getNext();
@@ -181,7 +199,7 @@ public class NeuralNet extends ListNodeMatrix {
 
         while (cur != super.getLastNode()) {
 
-            double deviation = manipulateBitString.calcPercentDeviation(output, new BitString(cur.getName()));
+            double deviation = manipulateBitString.calcPercentDeviation(result, new BitString(cur.getName()));
 
             if (deviation > bestDeviation) {
 
@@ -194,7 +212,8 @@ public class NeuralNet extends ListNodeMatrix {
 
         }
 
-        double deviation = manipulateBitString.calcPercentDeviation(output, new BitString(cur.getName()));
+        // For last node case
+        double deviation = manipulateBitString.calcPercentDeviation(result, new BitString(cur.getName()));
 
         if (deviation > bestDeviation)
             category = (ListNode) cur.getValue();
@@ -206,11 +225,18 @@ public class NeuralNet extends ListNodeMatrix {
     private void setCategories() {
 
         // Sets the categories with the average BitString of each sub object
-        super.addMain("dan");
+
 
     }
 
     public void inputImages(BitString in, String name) {
+
+        // Creates new weight matrices that have as many neurons as bits in BitString in
+
+
+    }
+
+    public void inputImages(int[][] in, String name) {
 
         // Creates new weight matrices that have as many neurons as bits in BitString in
 
