@@ -70,7 +70,7 @@ public class NeuralNet extends ListNodeMatrix {
 
     }
 
-    private BitString runCategoryNetwork(BitString input) {
+    private ListNode runCategoryNetwork(BitString input) {
 
         BitString output = new BitString(input.size());
         Matrix bipolarMatrix = Matrix.toRowMatrix(manipulateBitString.toBipolarArray(input));
@@ -100,7 +100,23 @@ public class NeuralNet extends ListNodeMatrix {
 
         }
 
-        return output;
+        ListNode lastNode = super.getLastNode();
+        ListNode cur = lastNode.getNext();
+
+        while(cur != lastNode){
+            if(cur.getValue().toString().equals(output.toString()))
+            {
+                return cur;
+            }
+            cur = cur.getNext();
+        }
+
+        if(lastNode.getValue().toString().equals(output.toString()))
+        {
+            return lastNode;
+        }
+
+        return null;
 
     }
 
