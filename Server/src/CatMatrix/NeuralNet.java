@@ -200,7 +200,7 @@ public class NeuralNet extends ListNodeMatrix {
 
     private ListNode decideCategory(BitString input) {
 
-        BitString result = runCategoryNetwork(input);
+        BitString result = new BitString(runCategoryNetwork(input).getName());
 
         int numCats = 1;
         ListNode c = super.getLastNode().getNext();
@@ -262,7 +262,7 @@ public class NeuralNet extends ListNodeMatrix {
     public String getName(BitString in) {
 
         String name = "";
-        BitString category = runCategoryNetwork(in);
+//        BitString category = runCategoryNetwork(in);
 
         return name;
 
