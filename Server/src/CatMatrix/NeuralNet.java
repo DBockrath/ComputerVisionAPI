@@ -15,12 +15,12 @@ public class NeuralNet extends ListNodeMatrix {
 
     private Matrix categoryWeightMatrix;
     private ManipulateBitString manipulateBitString = new ManipulateBitString();
-    private final int numOfNeurons = 57600;
+    private final int numOfNeurons = 1000;
     private double minPercentDeviation = .50;
 
     public NeuralNet() {
 
-        setCategories();
+        super.addMain("1010100100111010100100100101001000100111011010101010100101001001010011001010101001001110101001001001010010001001110110101010101001010010010100110010101010010011101010010010010100100010011101101010101010010100100101001100101010100100111010100100100101001000100111011010101010100101001001010011001010101001001110101001001001010010001001110110101010101001010010010100110010101010010011101010010010010100100010011101101010101010010100100101001100101010100100111010100100100101001000100111011010101010100101001001010011001010101001001110101001001001010010001001110110101010101001010010010100110010101010010011101010010010010100100010011101101010101010010100100101001100101010100100111010100100100101001000100111011010101010100101001001010011001010101001001110101001001001010010001001110110101010101001010010010100110010101010010011101010010010010100100010011101101010101010010100100101001100101010100100111010100100100101001000100111011010101010100101001001010011001010011001010101001001110101001001001010");
 
         try {
 
@@ -245,6 +245,21 @@ public class NeuralNet extends ListNodeMatrix {
 
     }
 
+    public void inputImage(BitString in, String name, int cat)
+    {
+        if(super.getMainName(cat) == null)
+        {
+            super.addMain(in.toString());
+            super.addSub(in, name, in.toString());
+
+        }else {
+            super.addSub(in, name, runCategoryNetwork(in).getName());
+        }
+
+
+
+    }
+
     public void inputImages(BitString in, String name) {
 
         // Creates new weight matrices that have as many neurons as bits in BitString in
@@ -261,10 +276,20 @@ public class NeuralNet extends ListNodeMatrix {
 
     public String getName(BitString in) {
 
-        String name = "";
-//        BitString category = runCategoryNetwork(in);
+        ListNode category = runCategoryNetwork(in);
+        ListNode sub = null;
 
-        return name;
+        try {
+
+            sub = runSubNetwork(in, category);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+
+        return sub.getName();
 
     }
 

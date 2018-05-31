@@ -9,7 +9,7 @@ public class BitString extends ArrayList<Character> {
     A BitString is stored as an ArrayList of chars
      */
 
-    private final int numOfPixels = 57600;
+    private final int numOfPixels = 1000;
 
     // Constructs using a String
     public BitString(String text) {
