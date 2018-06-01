@@ -100,6 +100,8 @@ public class NeuralNet extends ListNodeMatrix {
             return lastNode;
         }
 
+        System.out.println("Cat found");
+
         return null;
 
     }
@@ -229,18 +231,38 @@ public class NeuralNet extends ListNodeMatrix {
 
     }
 
-    public void inputImage(BitString in, String name, int cat)
-    {
-        if(super.getMainName(cat) == null)
-        {
-            super.addMain(in.toString());
-            super.addSub(in, name, in.toString());
+    public void inputImage(BitString in, String name) {
 
-        }else {
-            super.addSub(in, name, runCategoryNetwork(in).getName());
+        ListNode cat = runCategoryNetwork(in);
+        ListNode cur = super.getLastNode().getNext();
+        int pos = 0;
+
+        if (super.getLastNode() == cur)
+            addSub(in.toString(), name, pos);
+
+        else {
+
+            while (cur != cat) {
+
+                cur = cur.getNext();
+                pos++;
+
+            }
+
+            addSub(in.toString(), name, pos);
+
         }
 
+        System.out.println("Sub added");
 
+//        if (super.getMainName(cat) == null) {
+//
+//            super.addMain(in.toString());
+//            super.addSub(in, name, in.toString());
+//
+//        } else {
+//            super.addSub(in, name, runCategoryNetwork(in).getName());
+//        }
 
     }
 
