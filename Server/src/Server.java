@@ -90,25 +90,25 @@ public class Server extends Thread {
 
         NeuralNetwork neuralNetwork = new NeuralNetwork(neurons);
 
-        try {
-
-            switch (command) {
-
-                case "Train":
-                    neuralNetwork.train(input);
-                    break;
-
-                case "Run":
-                    neuralNetwork.run(input);
-                    break;
-
-            }
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-        }
+//        try {
+//
+//            switch (command) {
+//
+//                case "Train":
+//                    neuralNetwork.train(input);
+//                    break;
+//
+//                case "Run":
+//                    neuralNetwork.run(input);
+//                    break;
+//
+//            }
+//
+//        } catch (Exception e) {
+//
+//            e.printStackTrace();
+//
+//        }
 
     }
 

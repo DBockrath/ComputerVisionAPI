@@ -18,28 +18,12 @@ public class NeuralNet extends ListNodeMatrix {
     private final int numOfNeurons = 1000;
     private double minPercentDeviation = .50;
 
-    public NeuralNet() {
-
-        super.addMain("1010100100111010100100100101001000100111011010101010100101001001010011001010101001001110101001001001010010001001110110101010101001010010010100110010101010010011101010010010010100100010011101101010101010010100100101001100101010100100111010100100100101001000100111011010101010100101001001010011001010101001001110101001001001010010001001110110101010101001010010010100110010101010010011101010010010010100100010011101101010101010010100100101001100101010100100111010100100100101001000100111011010101010100101001001010011001010101001001110101001001001010010001001110110101010101001010010010100110010101010010011101010010010010100100010011101101010101010010100100101001100101010100100111010100100100101001000100111011010101010100101001001010011001010101001001110101001001001010010001001110110101010101001010010010100110010101010010011101010010010010100100010011101101010101010010100100101001100101010100100111010100100100101001000100111011010101010100101001001010011001010011001010101001001110101001001001010");
-
-        try {
-
-            trainCategoryWeightMatrix();
-
-        } catch (Exception e) {
-
-            e.printStackTrace();
-
-        }
-
-    }
-
     // Goals
     // inputImages adds an image to LNM and trains the neural net with this image
     // decideCategory will calc the deviation percentage between a cat and an input
     // Each category will be and average of the sub objects. Use calcAverageBitString() to do this
 
-    private void trainCategoryWeightMatrix() throws Exception {
+    public void trainCategoryWeightMatrix() throws Exception {
 
         categoryWeightMatrix = new Matrix(numOfNeurons, numOfNeurons);
 
@@ -70,7 +54,7 @@ public class NeuralNet extends ListNodeMatrix {
 
     }
 
-    private ListNode runCategoryNetwork(BitString input) {
+    public ListNode runCategoryNetwork(BitString input) {
 
         BitString output = new BitString(input.size());
         Matrix bipolarMatrix = Matrix.toRowMatrix(manipulateBitString.toBipolarArray(input));
@@ -104,14 +88,14 @@ public class NeuralNet extends ListNodeMatrix {
         ListNode cur = lastNode.getNext();
 
         while(cur != lastNode){
-            if(cur.getValue().toString().equals(output.toString()))
+            if(cur.getName().equals(output.toString()))
             {
                 return cur;
             }
             cur = cur.getNext();
         }
 
-        if(lastNode.getValue().toString().equals(output.toString()))
+        if(lastNode.getName().equals(output.toString()))
         {
             return lastNode;
         }
